@@ -1,0 +1,211 @@
+{% trans_default_domain 'MicroliseSurveyBundle' %}
+
+<!DOCTYPE html>
+<!--[if IE 8 ]><html class="ie8" lang="en"><![endif]-->
+<!--[if IE 9 ]><html class="ie9" lang="en"><![endif]-->
+<!--[if !IE]><!--><html lang="en"><!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+
+    <!-- Meta -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="description" content="{% block description %}{% endblock %}"/>
+    <meta name="author" content="Microlise Ltd."/>
+    <title>{% block title %}{% endblock %}</title>
+
+    <!-- Favicons -->
+    <link rel="shortcut icon" href="{{ asset('bundles/microlisesurvey/microboot/img/favicon.ico') }}"/>
+
+    {% block headcss %}
+
+        {% if app.user.primaryGroup.stylesheet is defined and app.user.primaryGroup.stylesheet|length %}
+            <!-- Theme CSS -->
+            <link rel="stylesheet" type="text/css" media="all" id="theme-css" href="{{ asset('bundles/microlisesurvey/microboot/css/') }}{{ app.user.primaryGroup.stylesheet }}">
+        {% else %}
+            <link rel="stylesheet" type="text/css" media="all" id="theme-css" href="{{ asset('bundles/microlisesurvey/microboot/css/tmc--microlise-branded.css') }}">
+        {% endif %}
+
+    {% endblock %}
+    {% block headjs %}
+        <!-- Modernizr -->
+        <script type="text/javascript" src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/modernizr.js') }}"></script>
+
+        <!-- TODO - need to put back to the bottom - jQuery -->
+        <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/jquery.js') }}"></script>
+    {% endblock %}
+
+</head>
+<body>
+
+<a href="#content" class="skiplink" accesskey="s">Skip navigation</a>
+
+
+
+
+
+{#
+    {% for type, messages in app.session.flashbag.all() %}
+        {% for message in messages %}
+            <div class="flash-{{ type }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+#}
+
+{% block main_content %}
+
+    {% block breadcrumbs %}
+
+    {% endblock breadcrumbs %}
+
+    {% block messages %}
+        {% for flashMessage in app.session.flashbag.get('notice') %}
+            <div class="base-line-margin-top flash-notice mb-alert mb-alert-error">
+                <button type="button" class="close" data-dismiss="alert"><i class="icon-cross icon--small" aria-hidden="true"></i></button>
+                <strong class="mb-alert__title"><i class="icon-error" aria-hidden="true"></i></strong> {{ flashMessage|trans }}
+            </div>
+        {% endfor %}
+
+        {% for flashMessage in app.session.flashbag.get('success') %}
+            <div class="base-line-margin-top flash-success mb-alert mb-alert-success">
+                <button type="button" class="close" data-dismiss="alert"><i class="icon-cross icon--small" aria-hidden="true"></i></button>
+                <strong class="mb-alert__title"><i class="icon-success" aria-hidden="true"></i></strong> {{ flashMessage|trans }}
+            </div>
+        {% endfor %}
+    {% endblock %}
+
+{% endblock main_content %}
+
+{% block footerjs %}
+    <!-- Core -->
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/microlise.navigator-extensions.js') }}"></script>
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/string-extensions.js') }}"></script>
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/namespace.js') }}"></script>
+
+    <!-- Globalize -->
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/globalize/globalize.js') }}"></script>
+
+    <!-- Migrate (>=v1.9) -->
+    <!--<script>
+        ;(function ($) {
+            Disable jQuery Migrate logging ;)
+            $.migrateMute = true;
+        })(window.jQuery);
+    </script> -->
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/jquery-migrate.js') }}"></script>
+
+    <!-- Extensions -->
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/jquery-extensions.js') }}"></script>
+
+    <!-- jQuery UI -->
+
+    <!--  Core -->
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/jquery-ui/jquery.ui.core.js') }}"></script>
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/jquery-ui/jquery.ui.widget.js') }}"></script>
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/jquery-ui/jquery.ui.mouse.js') }}"></script>
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/jquery-ui/jquery.ui.position.js') }}"></script>
+
+    <!-- Effects -->
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/jquery-ui/jquery.ui.effect.js') }}"></script>
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/jquery-ui/jquery.ui.effect-blind.js') }}"></script>
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/jquery-ui/jquery.ui.effect-bounce.js') }}"></script>
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/jquery-ui/jquery.ui.effect-drop.js') }}"></script>
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/jquery-ui/jquery.ui.effect-fade.js') }}"></script>
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/jquery-ui/jquery.ui.effect-highlight.js') }}"></script>
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/jquery-ui/jquery.ui.effect-shake.js') }}"></script>
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/jquery-ui/jquery.ui.effect-slide.js') }}"></script>
+
+    <!-- Widgets -->
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/jquery-ui/jquery.ui.autocomplete.js') }}"></script>
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/jquery-ui/jquery.ui.datepicker.js') }}"></script>
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/jquery-ui/jquery.ui.draggable.js') }}"></script>
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/jquery-ui/jquery.ui.droppable.js') }}"></script>
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/jquery-ui/jquery.ui.menu.js') }}"></script>
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/jquery-ui/jquery.ui.resizable.js') }}"></script>
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/jquery-ui/jquery.ui.selectable.js') }}"></script>
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/jquery-ui/jquery.ui.slider.js') }}"></script>
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/jquery-ui/jquery.ui.sortable.js') }}"></script>
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/jquery-ui/jquery.ui.spinner.js') }}"></script>
+
+    <!-- WIP -->
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/jquery-ui/jquery.ui.mask.js') }}"></script>
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/jquery-ui/jquery.ui.timepicker.js') }}"></script>
+
+    <!-- Overrides -->
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/jquery-ui-overrides.js') }}"></script>
+
+    <!-- 3rd Party -->
+
+    <!-- Bootstrap -->
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/bootstrap/bootstrap-alert.js') }}"></script>
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/bootstrap/bootstrap-button.js') }}"></script>
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/bootstrap/bootstrap-collapse.js') }}"></script>
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/bootstrap/bootstrap-dropdown.js') }}"></script>
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/bootstrap/bootstrap-tab.js') }}"></script>
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/bootstrap/bootstrap-tooltip.js') }}"></script>
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/bootstrap/bootstrap-popover.js') }}"></script>
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/bootstrap/bootstrap-transition.js') }}"></script>
+
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/jquery.bootstrap-overrides.js') }}"></script>
+
+    <!-- CarouFredSel -->
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/jquery.caroufredsel.js') }}"></script>
+
+    <!-- jqGrid -->
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/jqgrid/jquery.jqgrid-en.js') }}"></script>
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/jqgrid/jquery.jqgrid.js') }}"></script>
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/jqgrid/jquery.jqgrid-extensions.js') }}"></script>
+
+    <!-- Fancybox -->
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/jquery.fancybox.js') }}"></script>
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/jquery.fancybox-extensions.js') }}"></script>
+
+    <!-- Multiselect -->
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/jquery.multiselect.js') }}"></script>
+
+    <!-- Mousewheel -->
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/jquery.mousewheel.js') }}"></script>
+
+    <!-- Select2 -->
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/jquery.select2.js') }}"></script>
+
+
+    <!-- Toggle Buttons -->
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/jquery.togglebuttons.js') }}"></script>
+
+    <!-- Yepnope -->
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/yepnope.js') }}"></script>
+
+    <!-- Microlise -->
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/jquery.microlise.countdownbar.js') }}"></script>
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/jquery.microlise.datetimepicker.js') }}"></script>
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/jquery.microlise.deadline.js') }}"></script>
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/jquery.microlise.fixoverflow.js') }}"></script>
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/jquery.microlise.tree-ie7.js') }}"></script>
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/jquery.microlise.tree.js') }}"></script>
+
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/jquery.microlise.clear-input.js') }}"></script>
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/jquery.microlise.scrollable.js') }}"></script>
+
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/microlise.modernizr-polyfills.js') }}"></script>
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/polyfill/jquery.placeholder.js') }}"></script>
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/polyfill/jquery.placeholder-extensions.js') }}"></script>
+
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/knockout.js') }}"></script>
+
+
+    <!-- Localisation -->
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/globalize/cultures/globalize.culture.en-GB.js') }}"></script>
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/jquery-ui/i18n/jquery.ui.datepicker-en-GB.js') }}"></script>
+{% endblock %}
+
+{% block jscode %}{% endblock %}
+
+{% block microboot %}
+    <!-- conflicts with ckeditor.js -->
+    <script src="{{ asset('bundles/microlisesurvey/microboot/js/microboot/microboot.js') }}"></script>
+{% endblock %}
+
+</body>
+</html>

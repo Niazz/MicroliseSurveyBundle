@@ -1,3 +1,7 @@
 microlise_survey_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: MicroliseSurveyBundle:Default:index }
+    path:     /
+    defaults: { _controller: MicroliseSurveyBundle:Survey:index }
+
+microlise_survey_create:
+    path:     /create
+    defaults: { _controller: MicroliseSurveyBundle:Survey:create }
