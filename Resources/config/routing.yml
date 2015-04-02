@@ -5,3 +5,12 @@ microlise_survey_homepage:
 microlise_survey_create:
     path:     /create
     defaults: { _controller: MicroliseSurveyBundle:Survey:create }
+
+microlise_survey_create_question:
+    path:     /create/questions
+    defaults: { _controller: MicroliseSurveyBundle:Survey:question }
+
+
+microlise_survey_display:
+    path:     /
+    defaults: { _controller: MicroliseSurveyBundle:Survey:display }

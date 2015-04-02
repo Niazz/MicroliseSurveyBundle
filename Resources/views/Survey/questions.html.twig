@@ -1,0 +1,48 @@
+{% extends "MicroliseSurveyBundle::auth.html.twig" %}
+
+{% block title %}
+    {{ 'Microlise Customer Feedback System' }}
+{% endblock title %}
+
+
+
+{% block main_content %}
+
+    <div id="content" class="container container--content">
+
+
+        <h2 class="base-line-padding-bottom">Microlise Customer Feedback System</h2>
+
+        <h2 class="base-line-padding-bottom">Create Survey - Step 2</h2>
+
+        <div class="row-fluid">
+            <div class="span12">
+
+                <div>
+                    {{ form_start(questionform) }}
+                    {{ form_widget(questionform) }}
+                    {{ form_end(questionform) }}
+                </div>
+                <div>
+
+                </div>
+                <div class="base-line-padding-bottom"><a href="/create" class="btn">Go Back</a></div>
+
+                <div>
+                    <div class="span5">
+                        <div class="well well-small base-line-padding-bottom">
+                            <h4></h4>
+                            <table class="table table-striped">
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock main_content %}
