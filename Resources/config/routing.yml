@@ -12,5 +12,13 @@ microlise_survey_create_question:
 
 
 microlise_survey_display:
-    path:     /
+    path:     /{id}/view
     defaults: { _controller: MicroliseSurveyBundle:Survey:display }
+
+microlise_survey_edit:
+    pattern: /{id}/edit
+    defaults: { _controller: MicroliseSurveyBundle:Survey:edit }
+
+microlise_survey_delete:
+    pattern: /{id}/delete
+    defaults: { _controller: MicroliseSurveyBundle:Survey:delete }

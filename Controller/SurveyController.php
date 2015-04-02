@@ -17,18 +17,20 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 
 use Microlise\SurveyBundle\Form\Type\SurveyType;
+use Microlise\SurveyBundle\Form\Type\QuestionType;
+
 
 class SurveyController extends controller
 {
     public function indexAction()
     {
-        $name = "hello niaz";
-
-        $oldsurveys = "survey1, survey2";
+        $repository = $this->getDoctrine()
+            ->getRepository('MicroliseSurveyBundle:Survey');
+        $survey = $repository->findAll();
 
         return $this->render(
             'MicroliseSurveyBundle:Survey:index.html.twig',
-            array('name' => $name, 'oldsurveys' => $oldsurveys)
+            array('survey' => $survey)
         );
 
     }
@@ -51,26 +53,22 @@ class SurveyController extends controller
 
         $id = uniqid();
 //print_r($id);
-        $survey = new Survey();
 
-        $surveyform = $this->createForm('survey', $survey);
-       // $surveyform = $this->createForm(new SurveyType(), $survey);
 
-    /*    $surveyform = $this->createFormBuilder($survey)
-            ->add('name', 'text')
-            ->add('description', 'text')
-            ->add('uniqueid', $id)
-            ->add('save', 'submit', array('label' => 'Next'))
-            ->getForm();*/
+        $em = $this->getDoctrine()->getManager();
+
+        $surveyform = $this->createForm(new SurveyType());
+
         $surveyform->handleRequest($request);
 
         if ($surveyform->isValid()) {
 
-            $em = $this->getDoctrine()->getManager();
+            $survey = $surveyform->getData();
 
             $em->persist($survey);
             $em->flush();
-          //  $this->questionAction($request, $id);
+
+          //  $this->questionAction($request, $id);*/
 
             return $this->redirect($this->generateUrl('microlise_survey_create_question'));
         }
@@ -88,23 +86,21 @@ class SurveyController extends controller
 
     public function questionAction(Request $request)
     {
-        $survey = new Survey();
         $id = uniqid();
         print_r($id);
-        $question = new Question();
 
-        $questionform = $this->createFormBuilder($question)
-            ->add('question', 'text')
-            ->add('surveyid', 'text')
-            ->add('save', 'submit', array('label' => 'Next'))
-            ->getForm();
+        $em = $this->getDoctrine()->getManager();
+
+        $questionform = $this->createForm(new QuestionType());
+
         $questionform->handleRequest($request);
+
 
         if ($questionform->isValid()) {
 
-            $em = $this->getDoctrine()->getManager();
+            $questions = $questionform->getData();
 
-            $em->persist($question);
+            $em->persist($questions);
             $em->flush();
 
             return $this->redirect($this->generateUrl('microlise_survey_create'));
@@ -118,10 +114,12 @@ class SurveyController extends controller
 
     public function displayAction($id)
     {
-        $repository = $this->getDoctrine()
-            ->getRepository('SurveyBundle:Survey');
-        $survey = $repository->findAll();
-print_r($survey);
+        $survey = $this->getDoctrine()
+            ->getRepository('MicroliseSurveyBundle:Survey')
+            ->find($id);
+
+      //  print_r($survey);
+        return $this->render('MicroliseSurveyBundle:Survey:viewSurvey.html.twig', array('survey' => $survey));
     }
 
 
