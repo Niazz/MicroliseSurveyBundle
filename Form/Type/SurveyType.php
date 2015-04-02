@@ -23,13 +23,13 @@ class SurveyType extends AbstractType
 
     public function getName()
     {
-        return 'name';
+        return 'survey';
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'MicroliseSurveyBundle\Entity\Survey',
+            'data_class' => 'Microlise\SurveyBundle\Entity\Survey',
         ));
     }
 }

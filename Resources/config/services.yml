@@ -3,7 +3,7 @@ services:
 #        class: Microlise\SurveyBundle\Example
 #        arguments: [@service_id, "plain_value", %parameter%]
 
-microlise_survey.form.type.survey:
+    microlise_survey.form.type.survey:
         class: Microlise\SurveyBundle\Form\Type\SurveyType
         tags:
             - { name: form.type, alias: survey }
