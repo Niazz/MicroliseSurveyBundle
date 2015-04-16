@@ -18,7 +18,6 @@ class SurveyType extends AbstractType
         $builder
             ->add('name')
             ->add('description')
-            ->add('uniqueid')
             ->add('save', 'submit', array('label' => 'Next'));
     }
 

@@ -26,14 +26,9 @@ class Question
     protected $question;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    protected $surveyid;
-
-    /**
      * @ORM\Column(type="string", length=100)
      */
-    protected $uniqueid;
+    protected $surveyid;
 
     /**
      * @return mixed
@@ -67,6 +62,7 @@ class Question
         $this->question = $question;
     }
 
+
     /**
      * @return mixed
      */
@@ -76,28 +72,14 @@ class Question
     }
 
     /**
-     * @param mixed $surveyid
+     * @param mixed $surveyname
      */
     public function setSurveyid($surveyid)
     {
         $this->surveyid = $surveyid;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getUniqueid()
-    {
-        return $this->uniqueid;
-    }
 
-    /**
-     * @param mixed $uniqueid
-     */
-    public function setUniqueid($uniqueid)
-    {
-        $this->uniqueid = $uniqueid;
-    }
 
 
 

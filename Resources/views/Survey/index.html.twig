@@ -36,8 +36,17 @@
                                         <ul class="grid-gutter-padding-left" style="list-style: none; margin: 0;">
                                             <li>
                                                 <strong>
-                                                    <a href="{{ path('microlise_survey_display', {'id': surveys.id}) }}">{{ surveys.name }}</a>
+
+                                                <ul class="inline">
+                                                    <li><a href="{{ path('microlise_survey_display', {'id': surveys.id}) }}" title="{{ surveys.name }}">{{ surveys.name }}</a></li>
+                                                    <li class="padding-0"><a href="{{ path('microlise_survey_edit', {'id': surveys.id}) }}" title="Edit Survey"><i class="icon-edit"></i></a></li>
+                                                    <li><a href="#" rel="popover" data-title="{{ surveys.name }}" title="Delete Survey" data-content='<ul class="mb-block-list  mb-block-list--flush  mb-full-bleed  mb-full-bleed--vertical">
+                                                    <li>{{ 'Are you sure you want to delete this survey?' }}</li>
+                                                    <li><a href="{{ path('microlise_survey_delete', {'id': surveys.id}) }}" class="mb-block-list__link"><i class="icon-delete" aria-hidden="true"></i> Delete</a></li>
+                                                    </ul>' data-html="true"><i class="icon-delete"></i></a></li>
+                                                </ul>
                                                 </strong>
+
                                             </li>
                                         </ul>
                                     {% endif %}

@@ -75,7 +75,7 @@ class SurveyController extends controller
 
 
 
-       // $id = $survey->getId();
+     //   $sid = $survey->getId();
 
         return $this->render('MicroliseSurveyBundle:Survey:create.html.twig', array(
             'surveyform' => $surveyform->createView(),
@@ -122,20 +122,82 @@ class SurveyController extends controller
         return $this->render('MicroliseSurveyBundle:Survey:viewSurvey.html.twig', array('survey' => $survey));
     }
 
-
-
-    public function buildSurveyAction()
+    public function deleteAction($id)
     {
+        $em = $this->getDoctrine()->getManager();
+        $survey = $em->getRepository('MicroliseSurveyBundle:Survey')->find($id);
 
-        $repository = $this->getDoctrine()
-            ->getRepository('MicroliseSurveyBundle:Survey');
-        $survey = $repository->findAll();
-        print_r($survey);
+        $em->remove($survey);
+        $em->flush();
 
-        return $this->render(
-            'MicroliseSurveyBundle:Survey:create.html.twig',
-            array()
-        );
+        $this->get('session')->getFlashBag()->add('notice', 'Survey Deleted');
+
+        return $this->redirect($this->generateUrl('microlise_survey_homepage'));
+    }
+
+    public function editAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $survey = $em->getRepository('MicroliseSurveyBundle:Survey')->find($id);
+
+
+        $form = $this->createForm(new SurveyType(), $survey);
+        $form->setData($survey);
+
+        if ($request->isMethod('POST')) {
+
+            $form->handleRequest($request);
+
+            if ($form->isValid()) {
+              //  $em->updateSurvey($survey);
+                $em->flush($survey);
+            }
+
+            return $this->redirect($this->generateUrl('microlise_survey_create_question'));
+        }
+
+
+        return $this->render('MicroliseSurveyBundle:Survey:edit.html.twig', array('form' => $form->createview()));
+
+
+    }
+
+    public function confirmAction()
+    {
+        $url = $this->generateUrl('blog_show', array('slug' => 'my-blog-post'));
+    }
+
+    public function emailAction(Request $request)
+    {
+    /*    $mailer = $this->get('mailer');
+        $message = $mailer->createMessage()
+            ->setSubject('Microlise Customer Feedback')
+            ->setFrom('send@example.com')
+            ->setTo('recipient@example.com')
+            ->setBody(
+                $this->renderView(
+                // app/Resources/views/Emails/registration.html.twig
+                    'Emails/email.html.twig',
+                    array('name' => $name)
+                ),
+                'text/html'
+            )*/
+            /*
+             * If you also want to include a plaintext version of the message
+            ->addPart(
+                $this->renderView(
+                    'Emails/registration.txt.twig',
+                    array('name' => $name)
+                ),
+                'text/plain'
+            )
+            */
+   /*     ;
+        $mailer->send($message);
+
+        return $this->render(...);
+        */
+
     }
 
     public function analyticsAction()

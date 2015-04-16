@@ -13,6 +13,11 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  */
 class Survey
 {
+    public function __toString()
+    {
+        return strval($this->id);
+    }
+
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
@@ -30,10 +35,6 @@ class Survey
      */
     protected $description;
 
-    /**
-     * @ORM\Column(type="string", length=100)
-     */
-    protected $uniqueid;
 
 
 
@@ -92,22 +93,6 @@ class Survey
     public function getDescription()
     {
         return $this->description;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getUniqueid()
-    {
-        return $this->uniqueid;
-    }
-
-    /**
-     * @param mixed $uniqueid
-     */
-    public function setUniqueid($uniqueid)
-    {
-        $this->uniqueid = $uniqueid;
     }
 
 

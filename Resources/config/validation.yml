@@ -1,0 +1,13 @@
+Microlise\SurveyBundle\Entity\Survey:
+    properties:
+        name:
+            - NotBlank: ~
+        description:
+            - NotBlank: ~
+
+Microlise\SurveyBundle\Entity\Question:
+    properties:
+        question:
+            - NotBlank: ~
+        surveyid:
+            - NotBlank: ~
