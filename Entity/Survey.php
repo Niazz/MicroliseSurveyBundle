@@ -5,7 +5,7 @@ namespace Microlise\SurveyBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity
@@ -36,7 +36,14 @@ class Survey
     protected $description;
 
 
+    /**
+     * @ORM\OneToMany(targetEntity="Question", mappedBy="survey")
+     **/
+    private $questions;
 
+    public function __construct() {
+        $this->questions = new ArrayCollection();
+    }
 
 
     /**
@@ -94,6 +101,24 @@ class Survey
     {
         return $this->description;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getQuestions()
+    {
+        return $this->questions;
+    }
+
+    /**
+     * @param mixed $questions
+     */
+    public function setQuestions($questions)
+    {
+        $this->questions = $questions;
+    }
+
+
 
 
 

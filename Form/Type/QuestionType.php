@@ -18,14 +18,54 @@ class QuestionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            //hidden survey id
+
             ->add('question')
-            ->add('surveyid', 'entity', array(
-                'label' => 'Select correct survey:',
-                'class' => 'MicroliseSurveyBundle:Survey',
-                'property' => 'name',
+
+            ->add('surveyid', 'entity',array(
+                'class' => 'MicroliseSurveyBundle:Question',
+                'data_class' => 'Microlise\SurveyBundle\Entity\Question',
+                'required'   =>  false,
+                'property' => 'surveyid',
             ))
 
-            ->add('save', 'submit', array('label' => 'Next'));
+            /*      ->add('surveyid', 'hidden', array(
+                     'data' => 'id'
+                 ))
+
+                ->add('surveyid', 'entity', array(
+                     'label' => 'Select correct survey:',
+                     'class' => 'MicroliseSurveyBundle:Survey',
+                     'property' => 'name',
+
+                 ))*/
+
+            ->add('save', 'submit', array('label' => 'Save Question'));
+
+        //
+    /*    $builder->add(
+            'type',
+            'choice',
+            array(
+                'choices' => array(
+                    'open_ended' => 'open_ended',
+                    'multiple_choice_single' => 'multiple_choice_single_answer',
+                    'multiple_choice_multiple' => 'multiple_choice_multiple_answers'
+                ),
+                'required' => true
+            )
+        );
+        $builder->add(
+            'commentAllowed',
+            'checkbox',
+            array('required' => true)
+        );
+        $builder->add(
+            'commentLabel',
+            'text',
+            array('required' => false)
+        );
+        //
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
             // ... adding the name field if needed
@@ -38,7 +78,7 @@ class QuestionType extends AbstractType
             if (!$survey || null === $survey->getId()) {
                 $form->add('name', 'text');
             }
-        });
+        });*/
 
     }
 

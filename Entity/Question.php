@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Question
 {
+    //
 
     /**
      * @ORM\Column(type="integer")
@@ -26,9 +27,11 @@ class Question
     protected $question;
 
     /**
-     * @ORM\Column(type="string", length=100)
-     */
-    protected $surveyid;
+     * @ORM\ManyToOne(targetEntity="Survey", inversedBy="questions")
+     * @ORM\JoinColumn(name="survey_id", referencedColumnName="id")
+     **/
+    private $surveyid;
+
 
     /**
      * @return mixed
@@ -63,6 +66,7 @@ class Question
     }
 
 
+
     /**
      * @return mixed
      */
@@ -72,7 +76,7 @@ class Question
     }
 
     /**
-     * @param mixed $surveyname
+     * @param mixed $surveyid
      */
     public function setSurveyid($surveyid)
     {
