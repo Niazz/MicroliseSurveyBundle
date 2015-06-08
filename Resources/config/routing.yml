@@ -7,7 +7,7 @@ microlise_survey_create:
     defaults: { _controller: MicroliseSurveyBundle:Survey:create }
 
 microlise_survey_create_question:
-    path:     /create/questions
+    path:     /{survey}/create/questions
     defaults: { _controller: MicroliseSurveyBundle:Survey:question }
 
 microlise_survey_confirm:

@@ -58,9 +58,13 @@ class SurveyController extends controller
             $id = $survey->getId();
 
 
-            $this->questionAction($request, $id);
+print_r($id);
+          //  $this->questionAction($request, $id);
 
-            return $this->redirect($this->generateUrl('microlise_survey_create_question'));
+       //     return $this->redirect($this->generateUrl('microlise_survey_create_question'));
+            return $this->redirect($this->generateUrl('microlise_survey_create_question', array('survey' => $id, 'module' => 'create', 'action' => 'questions'), true));
+
+
         }
 
      /*   $survey = $this->getDoctrine()
@@ -78,34 +82,51 @@ class SurveyController extends controller
 
     }
 
-    public function questionAction(Request $request, $id)
-    {
 
-print_r($id);
+    public function questionAction(Request $request, $survey)
+    {
+        $repository = $this->getDoctrine()
+            ->getRepository('MicroliseSurveyBundle:Survey');
+
+        $query = $repository->createQueryBuilder('s')
+            ->select('s.id', 's.name', 's.description')
+            ->where('s.id = :surveyid')
+            ->setParameter('surveyid', $survey)
+            ->getQuery();
+
+        $surveyid = $query->getResult();
+
+        //print_r($survey);
+
+        $surveyname = $surveyid[0]['name'];
+        $surveydescription = $surveyid[0]['description'];
+
+print_r($surveyid);
 
         $em = $this->getDoctrine()->getManager();
 
-
-
-
-        $questionform = $this->createForm(new QuestionType(), $id);
-
+        $questionform = $this->createForm(new QuestionType($survey));
 
         $questionform->handleRequest($request);
 
-
         if ($questionform->isValid()) {
 
+            $sid = new Question();
+            $sid->setSurveyid($survey);
+
             $questions = $questionform->getData();
-            $em->persist($questions);
+            $em->persist($questions, $sid);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('microlise_survey_create_question'));
+            return $this->redirect($this->generateUrl('microlise_survey_create_question', array('survey' => $survey, 'module' => 'create', 'action' => 'questions'), true));
+
             //return $this->redirect($this->generateUrl('microlise_survey_create'));
         }
 
         return $this->render('MicroliseSurveyBundle:Survey:questions.html.twig', array(
             'questionform' => $questionform->createView(),
+            'surveyname' => $surveyname,
+            'surveydescription' => $surveydescription,
         ));
 
     }

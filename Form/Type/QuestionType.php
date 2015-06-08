@@ -13,25 +13,32 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
 class QuestionType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            //hidden survey id
 
             ->add('question')
 
             ->add('surveyid', 'entity',array(
-                'class' => 'MicroliseSurveyBundle:Question',
-                'data_class' => 'Microlise\SurveyBundle\Entity\Question',
+                'class' => 'MicroliseSurveyBundle:Survey',
+                'data_class' => 'Microlise\SurveyBundle\Entity\Survey',
                 'required'   =>  false,
-                'property' => 'surveyid',
+                'property' => 'id',
             ))
 
-            /*      ->add('surveyid', 'hidden', array(
-                     'data' => 'id'
-                 ))
+
+         /*   ->add('surveyid', 'entity',array(
+                'class' => 'MicroliseSurveyBundle:Survey',
+                'data_class' => 'Microlise\SurveyBundle\Entity\Survey',
+                'required'   =>  false,
+                'property' => 'id',
+            ))*/
+
+            /*
 
                 ->add('surveyid', 'entity', array(
                      'label' => 'Select correct survey:',
@@ -82,6 +89,12 @@ class QuestionType extends AbstractType
 
     }
 
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults(array(
+            'validation_groups' => false,
+        ));
+    }
 
     public function getName()
     {
